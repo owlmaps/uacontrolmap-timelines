@@ -1,0 +1,6 @@
+baseURL = 'https://owlmaps.github.io/uacontrolmap-timelines'
+languageCode = 'en-us'
+title = 'UAControlMap Timelines'
+
+disableKinds = ['taxonomy', 'term', 'categories']
+cleanDestinationDir = true
