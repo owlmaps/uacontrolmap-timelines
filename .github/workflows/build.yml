@@ -1,8 +1,11 @@
-# build a hugo page
-name: Build
+# Sample workflow for building and deploying a Hugo site to GitHub Pages
+name: Deploy Hugo site to Pages
 
 on:
-  workflow_call:
+  # Runs on pushes targeting the default branch
+  push:
+    branches: ["main"]
+
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -23,6 +26,7 @@ defaults:
     shell: bash
 
 jobs:
+  # Build job
   build:
     runs-on: ubuntu-latest
     env:
@@ -56,6 +60,8 @@ jobs:
         uses: actions/upload-pages-artifact@v1
         with:
           path: ./public
+
+  # Deployment job
   deploy:
     environment:
       name: github-pages
