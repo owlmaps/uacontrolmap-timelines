@@ -78,6 +78,7 @@ const DATA_URL = 'https://raw.githubusercontent.com/owlmaps/timeline-data/main/d
   // const dataJson = await fetch(`${params.baseURL}/data/positions.json`);
   const dataJson = await fetch(DATA_URL);
   const data = await dataJson.json();
+  const { positions, frontline } = data;
 
   const getInterval = function (pos) {
     return {
@@ -90,7 +91,7 @@ const DATA_URL = 'https://raw.githubusercontent.com/owlmaps/timeline-data/main/d
       return new Date(date * 1000).toString();
     },
   });
-  const timeline = L.timeline(data, {
+  const timeline = L.timeline(positions, {
     getInterval: getInterval,
     pointToLayer: function (data, latlng) {
       const color = data.properties.side === "ua"
