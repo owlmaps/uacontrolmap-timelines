@@ -131,4 +131,8 @@ const DATA_URL = 'https://raw.githubusercontent.com/owlmaps/timeline-data/main/d
   });
   updateList(timeline);
 
+  // set inital time to latest layer
+  timeline.setTime(timeline.end);
+  timelineControl.setTime(timeline.end);
+
 })()
