@@ -25,38 +25,43 @@ const DATA_URL = 'https://raw.githubusercontent.com/owlmaps/timeline-data/main/d
   const styleFunc = function(_data) {
     const { start } = _data.properties;
     const diff = Math.floor((currentTime - start) / 86400);
-    // console.log(`x ist ${diff} Tage alt`);
-    // let radius  = 7;
-    let fillOpacity = 0.2;
-    let strokeOpacity = 2;
-    let weight = 3;
-    switch (diff) {
-      case 0:
-        // do nothing
-        break;
-      case 1:
-        // strokeOpacity = 0.75;
-        weight = 0;
-        break;
-      case 2:
-        // strokeOpacity = 0.5;
-        weight = 0;
-        break;
-      case 3:
-        // strokeOpacity = 0.25;
-        weight = 0;
-        break;   
-      default:
-        break;
+    const weight = (diff > 0) ? 0 : 3;
+    return { weight }
+  }
+
+  function addFrontlineWithToggleButton() {
+
+    // frontline style
+    const frontlineOptions = {
+      weight: 2,
+      color: '#ff0000',
+      fillOpacity: 0.05
     }
 
-    return {
-      // fillOpacity: 0.5
-      // radius: radius,
-      weight: weight,
-      // opacity: strokeOpacity
-    }
+    // add frontline layers to map
+    const frontlineLayer = L.geoJSON(frontline, frontlineOptions);
+    // frontlineLayer.addTo(map); // leave the front line off in start
+
+    // toggle button
+    const toggleButtonControl = L.Control.extend({
+      onAdd: function(map) {
+          const button = L.DomUtil.create('button', 'frontline-toggle');
+          button.title = 'Toggle Current Frontline';
+          L.DomEvent.disableClickPropagation(button);
+          L.DomEvent.on(button, 'click', function() {
+            if (map.hasLayer(frontlineLayer)) {
+              map.removeLayer(frontlineLayer);
+            } else {
+              map.addLayer(frontlineLayer);  
+            }
+          });
+          return button;
+      },  
+    });
+    const toggleButton = new toggleButtonControl({ position: 'topright' });
+    toggleButton.addTo(map);
   }
+
 
   function updateList(timeline) {
     // const displayed = timeline.getLayers(); // data for each displayed layer
@@ -122,7 +127,6 @@ const DATA_URL = 'https://raw.githubusercontent.com/owlmaps/timeline-data/main/d
     this.setStyle(styleFunc);
   });
   updateList(timeline);
-
-
+  addFrontlineWithToggleButton();
 
 })()
