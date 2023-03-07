@@ -35,7 +35,8 @@ const DATA_URL = 'https://raw.githubusercontent.com/owlmaps/timeline-data/main/d
     const frontlineOptions = {
       weight: 2,
       color: '#ff0000',
-      fillOpacity: 0.05
+      fillOpacity: 0.05,
+      interactive: false,
     }
 
     // add frontline layers to map
@@ -118,6 +119,8 @@ const DATA_URL = 'https://raw.githubusercontent.com/owlmaps/timeline-data/main/d
   timeline.end -= (DELAY * 86400);
   timeline.times.splice(timeline.length - DELAY, DELAY);
 
+  addFrontlineWithToggleButton();
+
   timelineControl.addTo(map);
   timelineControl.addTimelines(timeline);
   timeline.addTo(map);
@@ -127,6 +130,5 @@ const DATA_URL = 'https://raw.githubusercontent.com/owlmaps/timeline-data/main/d
     this.setStyle(styleFunc);
   });
   updateList(timeline);
-  addFrontlineWithToggleButton();
 
 })()
