@@ -24,53 +24,47 @@ const DATA_URL = 'https://raw.githubusercontent.com/owlmaps/timeline-data/main/d
 
   const dataJson = await fetch(DATA_URL);
   const frontline = await dataJson.json();
-  console.log(frontline)
+  // console.log(frontline);
 
-  // const getInterval = function (pos) {
-  //   return {
-  //     start: pos.properties.start ,
-  //     end: pos.properties.start + (DELAY * 86400),
-  //   };
-  // };
-  // const timelineControl = L.timelineSliderControl({
-  //   formatOutput: function (date) {
-  //     return new Date(date * 1000).toString();
-  //   },
-  // });
-  // const timeline = L.timeline(frontline, {
-  //   getInterval: getInterval,
-  //   pointToLayer: function (data, latlng) {
-  //     const color = data.properties.side === "ua"
-  //       ? '#0039a6'
-  //       : '#d52b1e';
-  //     const title = data.properties.name;
-  //     const description = data.properties.description;
-  //     const description2 = transformUrls(description);
-      
-  //     const msg = `<h4>${title}</h4><div class="msg">${description2}</div>`;
-  //     return L.circleMarker(latlng, {
-  //       radius: 8,
-  //       color: color,
-  //       fillColor: color,
-  //     }).bindPopup(msg);
-  //   },
-  // });
-  // fix timeline (remove the DELAY from the end)
-  // timeline.end -= (DELAY * 86400);
-  // timeline.times.splice(timeline.length - DELAY, DELAY);
+  const getInterval = function (pos) {
+    return {
+      start: pos.properties.start,
+      end: pos.properties.start + (1 * 86400),
+    };
+  };
+  const timelineControl = L.timelineSliderControl({
+    formatOutput: function (date) {
+      return new Date(date * 1000).toString();
+    },
+    enableKeyboardControls: true,
+  });
+  const timeline = L.timeline(frontline, {
+    getInterval: getInterval,
+    style: function (data) {
+      return {
+        stroke: false,
+        color: "rgb(255,0,0)",
+        fillOpacity: 0.3,
+        weight: 0,
+        interactive: false,
+      };
+    },
+    waitToUpdateMap: true,
+  });
+  // fix timeline length
+  timeline.end -= (1 * 86400);
+  timeline.times.splice(timeline.length - 1, 1);
 
-  // timelineControl.addTo(map);
-  // timelineControl.addTimelines(timeline);
-  // timeline.addTo(map);
-  // timeline.on("change", function (e) {
-  //   updateDate(e.target);
-  //   currentTime = this.time;
-  //   this.setStyle(styleFunc);
-  // });
-  // updateDate(timeline);
+  timelineControl.addTo(map);
+  timelineControl.addTimelines(timeline);
+  timeline.addTo(map);
+  timeline.on("change", function (e) {
+    updateDate(e.target);
+  });
+  updateDate(timeline);
 
   // set inital time to latest layer
-  // timeline.setTime(timeline.end);
-  // timelineControl.setTime(timeline.end);
+  timeline.setTime(timeline.end);
+  timelineControl.setTime(timeline.end);  
 
 })()
