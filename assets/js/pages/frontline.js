@@ -1,11 +1,11 @@
 import basemap from '../helper/basemap'
-import * as params from '@params';
+
+const DATA_URL = 'https://raw.githubusercontent.com/owlmaps/timeline-data/main/data/frontline.json';
 
 (async () => {
   const map = basemap();
 
-  // on change
-  function updateList(timeline) {
+  function updateDate(timeline) {
     // const displayed = timeline.getLayers(); // data for each displayed layer
     const onChangeDate = document.getElementById("on-change-date");
     const currentDate = new Date(timeline.time * 1000);
@@ -22,51 +22,55 @@ import * as params from '@params';
     onChangeDate.innerHTML = `[ ${displayDate} ]`;
   }
 
-  const dataJson = await fetch(`${params.baseURL}/data/frontline.json`);
-  const data = await dataJson.json();
+  const dataJson = await fetch(DATA_URL);
+  const frontline = await dataJson.json();
+  console.log(frontline)
 
-  function getColorFor(str) {
-    return "rgb(255,0,0)";
-  }
+  // const getInterval = function (pos) {
+  //   return {
+  //     start: pos.properties.start ,
+  //     end: pos.properties.start + (DELAY * 86400),
+  //   };
+  // };
+  // const timelineControl = L.timelineSliderControl({
+  //   formatOutput: function (date) {
+  //     return new Date(date * 1000).toString();
+  //   },
+  // });
+  // const timeline = L.timeline(frontline, {
+  //   getInterval: getInterval,
+  //   pointToLayer: function (data, latlng) {
+  //     const color = data.properties.side === "ua"
+  //       ? '#0039a6'
+  //       : '#d52b1e';
+  //     const title = data.properties.name;
+  //     const description = data.properties.description;
+  //     const description2 = transformUrls(description);
+      
+  //     const msg = `<h4>${title}</h4><div class="msg">${description2}</div>`;
+  //     return L.circleMarker(latlng, {
+  //       radius: 8,
+  //       color: color,
+  //       fillColor: color,
+  //     }).bindPopup(msg);
+  //   },
+  // });
+  // fix timeline (remove the DELAY from the end)
+  // timeline.end -= (DELAY * 86400);
+  // timeline.times.splice(timeline.length - DELAY, DELAY);
 
-  const getInterval = function (pos) {
-    console.log(pos.properties.start)
-    return {
-      start: pos.properties.startTimestamp,
-      end: pos.properties.startTimestamp + (1 * 86400),
-    };
-  };
+  // timelineControl.addTo(map);
+  // timelineControl.addTimelines(timeline);
+  // timeline.addTo(map);
+  // timeline.on("change", function (e) {
+  //   updateDate(e.target);
+  //   currentTime = this.time;
+  //   this.setStyle(styleFunc);
+  // });
+  // updateDate(timeline);
 
-  timeline = L.timeline(data, {
-    getInterval: getInterval,
-    style: function (data) {
-      // console.log(data)
-      return {
-        stroke: false,
-        color: getColorFor(data.properties.name),
-        fillOpacity: 0.5,
-      };
-    },
-    waitToUpdateMap: true,
-    onEachFeature: function (feature, layer) {
-      layer.bindTooltip(feature.properties.name);
-    },
-  });
-
-  timelineControl = L.timelineSliderControl({
-    formatOutput: function (date) {
-      return new Date(date * 1000).toString();
-    },
-    enableKeyboardControls: true,
-  });
-  timeline.addTo(map);
-  timelineControl.addTo(map);
-  timelineControl.addTimelines(timeline);  
-  timeline.on("change", function (e) {
-    updateList(e.target);
-  });
-  updateList(timeline);
-
-
+  // set inital time to latest layer
+  // timeline.setTime(timeline.end);
+  // timelineControl.setTime(timeline.end);
 
 })()

@@ -1,5 +1,4 @@
 import basemap from '../helper/basemap'
-import * as params from '@params';
 
 const DATA_URL = 'https://raw.githubusercontent.com/owlmaps/timeline-data/main/data/latestposition.json';
 
@@ -64,7 +63,7 @@ const DATA_URL = 'https://raw.githubusercontent.com/owlmaps/timeline-data/main/d
   }
 
 
-  function updateList(timeline) {
+  function updateDate(timeline) {
     // const displayed = timeline.getLayers(); // data for each displayed layer
     const onChangeDate = document.getElementById("on-change-date");
     const currentDate = new Date(timeline.time * 1000);
@@ -125,11 +124,11 @@ const DATA_URL = 'https://raw.githubusercontent.com/owlmaps/timeline-data/main/d
   timelineControl.addTimelines(timeline);
   timeline.addTo(map);
   timeline.on("change", function (e) {
-    updateList(e.target);
+    updateDate(e.target);
     currentTime = this.time;
     this.setStyle(styleFunc);
   });
-  updateList(timeline);
+  updateDate(timeline);
 
   // set inital time to latest layer
   timeline.setTime(timeline.end);
