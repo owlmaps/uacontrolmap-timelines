@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ .Title }}</title>
+  {{ $sass := resources.Get "scss/index.scss" }}
+  {{ $style := $sass | resources.ToCSS }}
+  {{ if hugo.IsProduction }}
+    {{ $secureStyle := $style | resources.Fingerprint "sha512" }}
+    <link rel="stylesheet" href="{{ $secureStyle.Permalink }}" integrity="{{ $secureStyle.Data.Integrity }}">
+  {{ else }}
+    <link rel="stylesheet" href="{{ $style.Permalink }}">
+  {{ end }}
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+     integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
+     crossorigin=""/>
+  <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+     integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
+     crossorigin=""></script>     
+    <script src="{{ .Site.BaseURL }}/js/leaflet.timeline.js"></script>
+</head>
+<body>
+  <div id="app">
+    <header>
+      <a href="{{ .Site.BaseURL }}" id="homelink">[Home]</a>
+      <h3>Geolocations Timeline</h3>
+    </header>
+    <div id="subheader">
+      <!-- <span id="on-change-date"></span> -->
+      <div id="custom-controls">
+        <div class="settings">
+          <span class="cc-intro">Playback Parameter:</span>
+          <span class="cc-title">Speed (slow/fast):</span>
+          <input type="range" id="cc-speed" min="1" max="5" steps="1" value="3">
+          <span class="cc-divider"></span>
+          <span class="cc-title">Date Range:</span>
+          <input type="date" id="cc-start" name="cc-start" value="" min="" max="">
+          &ndash;
+          <input type="date" id="cc-end" name="cc-end" value="" min="" max="">
+          <span class="cc-divider"></span>
+          <button id="cc-apply" disabled>Apply</button>
+        </div>
+        <div class="generate">
+          <button id="generate-url">Generate URL from current settings & add to clipboard</button>
+        </div>
+      </div>
+    </div>    
+    <div id="content">
+      <span id="on-change-date"></span>
+      <main>
+        <div id="map"></div>
+      </main>
+    </div>
+    <div id="loading"></div>
+  </div>
+
+  {{ if hugo.IsProduction }}
+    {{- $js := resources.Get "js/pages/geolocations.js" | js.Build (dict "minify" true "params" (dict "baseURL" .Site.BaseURL)) -}}
+    {{ $secureJS := $js | resources.Fingerprint "sha512" }}
+    <script src="{{ $secureJS.Permalink }}" integrity="{{ $secureJS.Data.Integrity }}"></script>
+  {{ else }}
+    {{- $js := resources.Get "js/pages/geolocations.js" | js.Build (dict "params" (dict "baseURL" .Site.BaseURL)) -}}
+    <script src="{{ $js.Permalink }}"></script>
+  {{ end}}
+
+</body>
+</html>

@@ -4,3 +4,8 @@ title = 'UAControlMap Timelines'
 
 disableKinds = ['taxonomy', 'term', 'categories']
 cleanDestinationDir = true
+
+[security]
+	[security.exec]
+		allow = ['^go$', '^npx$', '^postcss$', '^babel$']
+

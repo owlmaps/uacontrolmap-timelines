@@ -1,0 +1,78 @@
+// front line toggle button
+.frontline-toggle {
+  width: 48px;
+  height: 48px;
+  background: #ffffff;
+  border-radius: 5px;
+  box-shadow: none;
+  border: 2px solid rgba(0,0,0,0.2);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-image: url('/uacontrolmap-timelines/images/frontline.jpg');
+  background-size: 75% auto;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+#custom-controls {
+  // margin-left: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+
+  .settings {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .cc-intro {
+    display: inline-block;
+    margin-right: 15px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #0057b7;
+  }
+
+  .cc-divider {
+    width: 1px;
+    background: #0057b7;
+    height: 20px;
+    margin: 0 15px;
+  }
+
+  .cc-title {
+    display: inline-block;
+    margin-right: 5px;
+    font-size: 14px;
+    font-weight: normal;
+    color: #0057b7;
+  }
+
+  input[type="range"] {
+    width: 100px;
+  }
+
+  input[type="date"] {
+    border-radius: 5px;
+    border: 1px solid #000;
+    background: #ffec7d;
+    color: #0057b7;
+  }
+  button {
+    border-radius: 5px;
+    border: 1px solid #0057b7;
+    color: #0057b7;
+    padding-left: 10px;
+    padding-right: 10px;
+    background: #ffec7d;
+  }
+  button:disabled,
+  button[disabled] {
+    opacity: 0.5;
+  }
+}
