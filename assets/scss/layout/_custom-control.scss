@@ -30,10 +30,18 @@
     align-items: center;
   }
 
+  .setting-one, .setting-two {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center; 
+    width: 100%;   
+  }
+
   .cc-intro {
     display: inline-block;
     margin-right: 15px;
-    font-size: 14px;
+    // font-size: 14px;
     font-weight: bold;
     color: #0057b7;
   }
@@ -48,7 +56,7 @@
   .cc-title {
     display: inline-block;
     margin-right: 5px;
-    font-size: 14px;
+    // font-size: 14px;
     font-weight: normal;
     color: #0057b7;
   }
@@ -74,5 +82,40 @@
   button:disabled,
   button[disabled] {
     opacity: 0.5;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  #custom-controls {
+    font-size: 13px;
+    .settings {
+      flex-direction: column;
+      .setting-one, .setting-two {
+        justify-content: left;
+      }
+      .setting-one {
+        margin-bottom: 4px;
+      }
+      .ccd-1 {
+        display: none;
+      }
+    }
+
+  }
+}
+@media screen and (max-width: 600px) {
+  #custom-controls {
+    flex-direction: column;
+    .settings {
+      flex-direction: column;
+      .setting-two {
+        margin-bottom: 4px;
+      }
+    }
+  }
+}
+@media screen and (max-width: 400px) {
+  #custom-controls {
+    font-size: 11px;
   }
 }

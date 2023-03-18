@@ -31,19 +31,23 @@
       <!-- <span id="on-change-date"></span> -->
       <div id="custom-controls">
         <div class="settings">
-          <span class="cc-intro">Playback Parameter:</span>
-          <span class="cc-title">Speed (slow/fast):</span>
-          <input type="range" id="cc-speed" min="1" max="5" steps="1" value="3">
-          <span class="cc-divider"></span>
-          <span class="cc-title">Date Range:</span>
-          <input type="date" id="cc-start" name="cc-start" value="" min="" max="">
-          &ndash;
-          <input type="date" id="cc-end" name="cc-end" value="" min="" max="">
-          <span class="cc-divider"></span>
-          <button id="cc-apply" disabled>Apply</button>
+          <span class="setting-one">
+            <span class="cc-intro">Playback:</span>
+            <span class="cc-title">Speed (slow/fast):</span>
+            <input type="range" id="cc-speed" min="1" max="5" steps="1" value="3">
+            <span class="cc-divider ccd-1"></span>
+          </span>
+          <span class="setting-two">
+            <span class="cc-title">TimeSpan:</span>
+            <input type="date" id="cc-start" name="cc-start" value="" min="" max="">
+            &ndash;
+            <input type="date" id="cc-end" name="cc-end" value="" min="" max="">
+            <span class="cc-divider ccd-2"></span>
+            <button id="cc-apply" disabled>Apply</button>
+          </span>
         </div>
         <div class="generate">
-          <button id="generate-url">Generate URL from current settings & add to clipboard</button>
+          <button id="generate-url">Generate URL to clipboard</button>
         </div>
       </div>
     </div>    
