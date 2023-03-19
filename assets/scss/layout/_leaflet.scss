@@ -12,4 +12,10 @@
 //   margin-bottom: 15px;
 // }
 
+// fix a chrome bug in "msg" popup, not breaking long words
+.leaflet-popup-content {
+  .msg {
+    overflow-wrap: break-word;
+  }
+}
 
