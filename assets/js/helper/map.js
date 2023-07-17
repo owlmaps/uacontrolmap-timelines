@@ -24,6 +24,25 @@ export const initBasemap = (props) => {
     noWrap: true,
   });  
 
+  // OpenTopoMap
+  const topoUrl = "https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png";
+  const topoAttrib =
+  "Kartendaten: © OpenStreetMap-Mitwirkende, SRTM | Kartendarstellung: © OpenTopoMap (CC-BY-SA) ";
+  const topo = L.tileLayer(topoUrl, {
+    maxZoom: 18,
+    attribution: topoAttrib,
+    noWrap: true,
+  });
+
+  // ESRI
+  const esriUrl = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}';
+  const esriAttrib = 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+  const esri = L.tileLayer(esriUrl, {
+    maxZoom: 18,
+    attribution: esriAttrib,
+    noWrap: true,
+  });
+
   // Carto tile Layer
   const cartoUrl = "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"; 
   const carto = L.tileLayer(cartoUrl, {
@@ -33,7 +52,9 @@ export const initBasemap = (props) => {
 
   // set basemaps (from tile layers above)
   const baseMaps = {
-    "OpenStreetMap": osm,
+    "OpenStreetMap": osm,    
+    "OpenTopoMap": topo,
+    "EsriWorldMap": esri,
     "CartoDB": carto
   };
 
