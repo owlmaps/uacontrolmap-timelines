@@ -9,8 +9,8 @@ const DATA_URL = 'https://raw.githubusercontent.com/owlmaps/timeline-data/main/d
   // fetch data and parse the json content
   let data = null;
   try {
-    //const dataJson = await fetch(DATA_URL);
-    const dataJson = await fetch("http://localhost:1313/uacontrolmap-timelines/latestposition.json"); // local dev
+    const dataJson = await fetch(DATA_URL);
+    // const dataJson = await fetch("http://localhost:1313/uacontrolmap-timelines/latestposition.json"); // local dev
     data = await dataJson.json();
   } catch (error) {
     console.log(error);
