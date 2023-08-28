@@ -182,7 +182,7 @@ export const addFrontlineWithToggleButton = (map, frontline) => {
 
   // frontline style
   const frontlineOptions = {
-    weight: 2,
+    weight: 3,
     color: '#ff0000',
     fillOpacity: 0.05,
     interactive: false,
@@ -190,7 +190,7 @@ export const addFrontlineWithToggleButton = (map, frontline) => {
 
   // add frontline layers to map
   const frontlineLayer = L.geoJSON(frontline, frontlineOptions);
-  // frontlineLayer.addTo(map); // leave the front line off in start
+  frontlineLayer.addTo(map); // comment to leave the front line off in start
 
   // toggle button
   const toggleButtonControl = L.Control.extend({
@@ -203,6 +203,40 @@ export const addFrontlineWithToggleButton = (map, frontline) => {
             map.removeLayer(frontlineLayer);
           } else {
             map.addLayer(frontlineLayer);  
+          }
+        });
+        return button;
+    },  
+  });
+  const toggleButton = new toggleButtonControl({ position: 'topright' });
+  toggleButton.addTo(map);
+}
+
+export const addFortificationWithToggleButton = (map, fortifications) => {
+
+  // frontline style
+  const fortificationsOptions = {
+    weight: 2,
+    color: '#ff00ff',
+    fillOpacity: 0.05,
+    interactive: false,
+  }
+
+  // add fortifications layers to map
+  const fortificationsLayer = L.geoJSON(fortifications, fortificationsOptions);
+  fortificationsLayer.addTo(map); // comment to leave the front line off in start
+
+  // toggle button
+  const toggleButtonControl = L.Control.extend({
+    onAdd: function(map) {
+        const button = L.DomUtil.create('button', 'fortifications-toggle');
+        button.title = 'Toggle Fortifications';
+        L.DomEvent.disableClickPropagation(button);
+        L.DomEvent.on(button, 'click', function() {
+          if (map.hasLayer(fortificationsLayer)) {
+            map.removeLayer(fortificationsLayer);
+          } else {
+            map.addLayer(fortificationsLayer);  
           }
         });
         return button;
