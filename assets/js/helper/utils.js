@@ -334,8 +334,8 @@ export const generatePropsAndData = (geolocationsOrig, userProps) => {
 
   // colors for ua/ru
   const COLORS = {
-    ua: '#0039a6',
-    ru: '#d52b1e'
+    ua: '#00c3ff',
+    ru: '#dd0000'
   };
 
   // get original start/end dates

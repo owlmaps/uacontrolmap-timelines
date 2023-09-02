@@ -118,9 +118,13 @@ const _setTimeLine = (props, geolocations) => {
       const description2 = utils.transformURLs(description);      
       const msg = `<h4>${title}</h4><div class="msg">${description2}</div>`;
       return L.circleMarker(latlng, {
-        radius: 8,
-        color: color,
+        radius: 6,
+        color: '#ffffff',
         fillColor: color,
+        stroke: true,
+        fill: true,
+        width: 2,
+        fillOpacity: 1,
       }).bindPopup(msg);
     },
   });
@@ -157,8 +161,10 @@ export const createTimeLine = (map, props, geolocations) => {
   const _styleFunc = (_data) => {
     const { start } = _data.properties;
     const diff = Math.floor((currentTime - start) / 86400);
-    const weight = (diff > 0) ? 0 : 3;
-    return { weight }
+    const weight = (diff > 0) ? 2 : 2;
+    const opacity = (diff > 0) ? 0.2 : 1;
+    const fillOpacity = (diff > 0) ? 0.2 : 1;
+    return { weight, opacity, fillOpacity }
   }
 
   timeline.on("change", function (e) {
@@ -183,7 +189,7 @@ export const addFrontlineWithToggleButton = (map, frontline) => {
   // frontline style
   const frontlineOptions = {
     weight: 3,
-    color: '#ff0000',
+    color: '#aa0000',
     fillOpacity: 0.05,
     interactive: false,
   }
@@ -214,10 +220,10 @@ export const addFrontlineWithToggleButton = (map, frontline) => {
 
 export const addFortificationWithToggleButton = (map, fortifications) => {
 
-  // frontline style
+  // fortifications style
   const fortificationsOptions = {
     weight: 2,
-    color: '#ff00ff',
+    color: '#ff8800',
     fillOpacity: 0.05,
     interactive: false,
   }

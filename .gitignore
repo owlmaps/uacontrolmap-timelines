@@ -25,3 +25,4 @@ node_modules
 /assets/jsconfig.json
 /.hugo_build.lock
 hugo.exe
+/static/latestposition.json
