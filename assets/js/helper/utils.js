@@ -249,10 +249,10 @@ const _normalizeProps = (userProps, dateRange, dateRangeOrig) => {
   // speed
   const speed = userProps.speed || 3;
   // latlng
-  const lat = userProps.lat || '48.96034143469434';
-  const lng = userProps.lng || '32.523124838234374';
+  const lat = userProps.lat || '47.50';
+  const lng = userProps.lng || '36.00';
   // zoom
-  const zoom = userProps.zoom || 6;
+  const zoom = userProps.zoom || 7;
   // start & end of timeline
   const start = userProps.start || startDateKey;
   const end =  userProps.end || endDateKey;

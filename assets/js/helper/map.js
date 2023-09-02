@@ -14,6 +14,16 @@ export const initBasemap = (props) => {
   const mapcenter = [lat, lng];
 
   // OSM tile layer
+  const cyclosmUrl = "https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png";
+  const cyclosmAttrib =
+  '<a href="https://github.com/cyclosm/cyclosm-cartocss-style/releases" title="CyclOSM - Open Bicycle render">CyclOSM</a> | Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors"';
+  const cyclosm = L.tileLayer(cyclosmUrl, {
+    maxZoom: 18,
+    attribution: cyclosmAttrib,
+    noWrap: true,
+  });  
+
+  // OSM tile layer
   const osmUrl = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
   const osmAttrib =
   '&copy; <a href="https://openstreetmap.org/copyright">' +
@@ -23,6 +33,7 @@ export const initBasemap = (props) => {
     attribution: osmAttrib,
     noWrap: true,
   });  
+  
 
   // OpenTopoMap
   const topoUrl = "https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png";
@@ -52,6 +63,7 @@ export const initBasemap = (props) => {
 
   // set basemaps (from tile layers above)
   const baseMaps = {
+    "CyclOSM": cyclosm,
     "OpenStreetMap": osm,    
     "OpenTopoMap": topo,
     "EsriWorldMap": esri,
@@ -60,7 +72,7 @@ export const initBasemap = (props) => {
 
   // create base map with OSM layer as default
   const map = L.map("map", {
-    layers: [osm],
+    layers: [cyclosm],
     center: mapcenter,
     zoom: zoom,
     maxBounds: [
