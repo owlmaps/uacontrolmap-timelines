@@ -179,7 +179,6 @@ const URL_PATTERN = /(((https?:\/\/)|(www\.))[^\s|<]+)/g;
 export const transformURLs = (aText) => {
   return aText.replace(URL_PATTERN, (url) => {
     let href = url;
-    console.log(href);
     if (!href.match('^https?:\/\/')) {
       href = 'http://' + href;
     }
