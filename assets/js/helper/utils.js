@@ -169,7 +169,7 @@ const _clone = (aDataObject) => {
  * @constant
  * @type {RegExp}
  */
-const URL_PATTERN = /(((https?:\/\/)|(www\.))[^\s]+)/g;
+const URL_PATTERN = /(((https?:\/\/)|(www\.))[^\s|<]+)/g;
 
 /**
  * Replaces all URLs in a text to html a tags
@@ -179,6 +179,7 @@ const URL_PATTERN = /(((https?:\/\/)|(www\.))[^\s]+)/g;
 export const transformURLs = (aText) => {
   return aText.replace(URL_PATTERN, (url) => {
     let href = url;
+    console.log(href);
     if (!href.match('^https?:\/\/')) {
       href = 'http://' + href;
     }
