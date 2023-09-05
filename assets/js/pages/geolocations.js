@@ -39,9 +39,9 @@ const DATA_URL = 'https://raw.githubusercontent.com/owlmaps/timeline-data/main/d
 
   map.on( 'baselayerchange', function (event) {
     if (event.layer.options.name === 'ruarmy') {
-      fortiLayer.setStyle({color: '#ff00d2', weight: 5});
+      fortiLayer.setStyle({color: '#ff00d2', weight: 4});
     } else {
-      fortiLayer.setStyle({color: '#ff8800', weight: 4});
+      fortiLayer.setStyle({color: '#ff8800', weight: 2});
     }
 });
 
