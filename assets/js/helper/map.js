@@ -21,6 +21,7 @@ export const initBasemap = (props) => {
     maxZoom: 18,
     attribution: cyclosmAttrib,
     noWrap: true,
+    name: 'cyclosm'
   });  
 
   // OSM tile layer
@@ -32,6 +33,7 @@ export const initBasemap = (props) => {
     maxZoom: 18,
     attribution: osmAttrib,
     noWrap: true,
+    name: 'osm'
   });  
   
 
@@ -43,6 +45,7 @@ export const initBasemap = (props) => {
     maxZoom: 18,
     attribution: topoAttrib,
     noWrap: true,
+    name: 'topo'
   });
 
   // ESRI
@@ -52,6 +55,7 @@ export const initBasemap = (props) => {
     maxZoom: 18,
     attribution: esriAttrib,
     noWrap: true,
+    name: 'esri'
   });
 
   // Carto tile Layer
@@ -59,7 +63,17 @@ export const initBasemap = (props) => {
   const carto = L.tileLayer(cartoUrl, {
     maxZoom: 18,
     noWrap: true,
+    name: 'carto'
   }); 
+
+    // RU tile Layer - https://qms.nextgis.com/geoservices/563/
+    const ruUrl = "http://88.99.52.155/cgi-bin/tapp/tilecache.py/1.0.0/topomapper_v2/{z}/{x}/{y}.jpg"; 
+    const ru = L.tileLayer(ruUrl, {
+      minZoom: 10,
+      maxZoom: 13,
+      noWrap: true,
+      name: 'ruarmy'
+    }); 
 
   // set basemaps (from tile layers above)
   const baseMaps = {
@@ -67,7 +81,8 @@ export const initBasemap = (props) => {
     "OpenStreetMap": osm,    
     "OpenTopoMap": topo,
     "EsriWorldMap": esri,
-    "CartoDB": carto
+    "CartoDB": carto,
+    "RuArmy": ru
   };
 
   // create base map with OSM layer as default
@@ -200,7 +215,7 @@ export const addFrontlineWithToggleButton = (map, frontline) => {
 
   // frontline style
   const frontlineOptions = {
-    weight: 3,
+    weight: 4,
     color: '#aa0000',
     fillOpacity: 0.05,
     interactive: false,
@@ -262,4 +277,7 @@ export const addFortificationWithToggleButton = (map, fortifications) => {
   });
   const toggleButton = new toggleButtonControl({ position: 'topright' });
   toggleButton.addTo(map);
+
+  return fortificationsLayer;
+
 }

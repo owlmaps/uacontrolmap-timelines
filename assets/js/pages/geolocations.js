@@ -8,6 +8,8 @@ const DATA_URL = 'https://raw.githubusercontent.com/owlmaps/timeline-data/main/d
 
   // fetch data and parse the json content
   let data = null;
+  let baseLayerName = '';
+
   try {
     const dataJson = await fetch(DATA_URL);
     // const dataJson = await fetch("http://localhost:1313/uacontrolmap-timelines/latestposition.json"); // local dev
@@ -30,10 +32,18 @@ const DATA_URL = 'https://raw.githubusercontent.com/owlmaps/timeline-data/main/d
   const map = mapUtils.initBasemap(props);
 
   // add frontline toggle
-  mapUtils.addFrontlineWithToggleButton(map, frontline);
+  const fortiLayer = mapUtils.addFortificationWithToggleButton(map, fortifications);
 
   // add frontline toggle
-  mapUtils.addFortificationWithToggleButton(map, fortifications);
+  mapUtils.addFrontlineWithToggleButton(map, frontline);
+
+  map.on( 'baselayerchange', function (event) {
+    if (event.layer.options.name === 'ruarmy') {
+      fortiLayer.setStyle({color: '#ff00d2', weight: 5});
+    } else {
+      fortiLayer.setStyle({color: '#ff8800', weight: 4});
+    }
+});
 
   // add timeline
   let tl = mapUtils.createTimeLine(map, props, geolocations);

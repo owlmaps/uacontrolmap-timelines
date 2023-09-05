@@ -26,3 +26,4 @@ node_modules
 /.hugo_build.lock
 hugo.exe
 /static/latestposition.json
+/static/frontline.json
