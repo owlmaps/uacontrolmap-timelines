@@ -68,11 +68,13 @@ export const initBasemap = (props) => {
 
     // RU tile Layer - https://qms.nextgis.com/geoservices/563/
     const ruUrl = "http://88.99.52.155/cgi-bin/tapp/tilecache.py/1.0.0/topomapper_v2/{z}/{x}/{y}.jpg"; 
+    const ruAttriib = 'Tiles &copy; ATLOGIS Geoinformatics oHG';
     const ru = L.tileLayer(ruUrl, {
       minZoom: 10,
       maxZoom: 13,
       noWrap: true,
-      name: 'ruarmy'
+      name: 'ruarmy',
+      attribution: ruAttriib,
     }); 
 
   // set basemaps (from tile layers above)
