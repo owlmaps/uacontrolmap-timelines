@@ -245,6 +245,8 @@ export const addFrontlineWithToggleButton = (map, frontline) => {
   });
   const toggleButton = new toggleButtonControl({ position: 'topright' });
   toggleButton.addTo(map);
+
+  return frontlineLayer;
 }
 
 export const addFortificationWithToggleButton = (map, fortifications) => {

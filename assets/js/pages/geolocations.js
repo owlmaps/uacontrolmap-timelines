@@ -35,15 +35,17 @@ const DATA_URL = 'https://raw.githubusercontent.com/owlmaps/timeline-data/main/d
   const fortiLayer = mapUtils.addFortificationWithToggleButton(map, fortifications);
 
   // add frontline toggle
-  mapUtils.addFrontlineWithToggleButton(map, frontline);
+  const frontLayer = mapUtils.addFrontlineWithToggleButton(map, frontline);
 
   map.on( 'baselayerchange', function (event) {
     if (event.layer.options.name === 'ruarmy') {
       fortiLayer.setStyle({color: '#ff00d2', weight: 4});
+      frontLayer.setStyle({color: '#ff0000'});
     } else {
       fortiLayer.setStyle({color: '#ff8800', weight: 2});
+      frontLayer.setStyle({color: '#aa0000'});
     }
-});
+  });
 
   // add timeline
   let tl = mapUtils.createTimeLine(map, props, geolocations);
