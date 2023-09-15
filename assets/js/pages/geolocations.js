@@ -17,7 +17,7 @@ const DATA_URL = 'https://raw.githubusercontent.com/owlmaps/timeline-data/main/d
   } catch (error) {
     console.log(error);
   }
-  const { positions, frontline, fortifications } = data;
+  const { positions, frontline, fortifications, dragonteeth } = data;
   // console.log(positions)
 
   // get user props
@@ -33,6 +33,9 @@ const DATA_URL = 'https://raw.githubusercontent.com/owlmaps/timeline-data/main/d
 
   // add frontline toggle
   const fortiLayer = mapUtils.addFortificationWithToggleButton(map, fortifications);
+
+  // add dragon teeth
+  const dragonteethLayer = mapUtils.addDragonTeethWithToggleButton(map, dragonteeth);
 
   // add frontline toggle
   const frontLayer = mapUtils.addFrontlineWithToggleButton(map, frontline);

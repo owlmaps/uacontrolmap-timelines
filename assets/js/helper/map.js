@@ -285,3 +285,41 @@ export const addFortificationWithToggleButton = (map, fortifications) => {
   return fortificationsLayer;
 
 }
+
+
+export const addDragonTeethWithToggleButton = (map, dragonteeth) => {
+
+  // dragon teeth style
+  const dragonteethOptions = {
+    weight: 2,
+    color: '#000000',
+    fillOpacity: 0.05,
+    interactive: false,
+  }
+
+  // add dragon teeth layers to map
+  const dragonteethLayer = L.geoJSON(dragonteeth, dragonteethOptions);
+  dragonteethLayer.addTo(map); // comment to leave the front line off in start
+
+  // toggle button
+  const toggleButtonControl = L.Control.extend({
+    onAdd: function(map) {
+        const button = L.DomUtil.create('button', 'dragonteeth-toggle');
+        button.title = 'Toggle Dragon Teeth';
+        L.DomEvent.disableClickPropagation(button);
+        L.DomEvent.on(button, 'click', function() {
+          if (map.hasLayer(dragonteethLayer)) {
+            map.removeLayer(dragonteethLayer);
+          } else {
+            map.addLayer(dragonteethLayer);  
+          }
+        });
+        return button;
+    },  
+  });
+  const toggleButton = new toggleButtonControl({ position: 'topright' });
+  toggleButton.addTo(map);
+
+  return dragonteethLayer;
+
+}
